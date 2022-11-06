@@ -1,0 +1,63 @@
+﻿@model IEnumerable<SubhashTripathi_Demo.CartVM>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int sum = 0;
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tbody>
+        <tr>
+            <th>
+                
+                @Html.DisplayNameFor(model => model.product.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.product.price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.product.image)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.product.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.product.price)
+                </td>
+                <td>
+                    <img src=@Url.Content(item.product.image) alt="" height="50" width="100" />
+                </td>
+
+                <td>
+                    @Html.ActionLink("Remove", "Remove", new { id = item.id })
+                </td>
+            </tr>
+        }
+    </tbody>
+    @foreach (var x in Model)
+    {
+        sum = Convert.ToInt32(x.product.price) + sum;
+
+    }
+<tfoot>
+    <tr>
+        <td><b>Total</b></td>
+        <td>
+           @sum
+        </td>
+        <td></td>
+        <td>
+
+        </td>
+    </tr>
+</tfoot>
+</table>

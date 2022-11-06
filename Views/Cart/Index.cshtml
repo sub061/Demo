@@ -1,0 +1,67 @@
+﻿@model IEnumerable<SubhashTripathi_Demo.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{ int cellCount = 0; }
+
+<h2>View Product </h2>
+
+@using (Html.BeginForm("Post", "Product", FormMethod.Post
+))
+{
+    @Html.AntiForgeryToken()
+
+    <table class="table table-bordered">
+
+        @foreach (var item in Model)
+        {
+            if (cellCount % 3 == 0)
+            {
+                @:<tr>
+                }
+                <td class="">
+
+
+                    <div class="col-md-12">
+                        <div class="col-md-7">
+                            <img src=@Url.Content(item.image) class="col-md-10" height="120 px" />
+                        </div>
+                        <div class="col-md-5">
+                           
+                            <a id="btn_add" href="@Url.Action("Add", "Cart" ,item )" class="btn btn-info">
+                                <span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(modelItem => item.name)
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-3 bg-success">
+                        ₹
+                        @Html.DisplayFor(modelItem => item.price)
+                    </div>
+
+                    <div class="col-md-12 center-block ">
+                        @Html.DisplayFor(modelItem => item.description)
+                    </div>
+
+                </td>
+
+                cellCount++;
+
+                if (cellCount % 3 == 0)
+                {
+                @:</tr>
+            }
+        }
+    </table>
+
+}
+
+
+
